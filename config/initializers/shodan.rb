@@ -1,3 +1,3 @@
 require 'shodan_client'
 
-ShodanClient = HTTPClient::Shodan.instance
+Shodan = HTTPClient::Shodan.instance

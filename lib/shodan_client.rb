@@ -22,12 +22,12 @@ module HTTPClient
     private
     
     def format_ip_info_response(res)
+      # https://developer.shodan.io/api/banner-specification
       banners = res['data'].map do |banner|
-        {
-          port: banner['port'],
-          timestamp: banner['timestamp'],
-          data: banner['data']
-        }
+        banner_keys = ['data', 'port', 'timestamp', 'hostnames', 'opts', 'os',
+                'title', 'html', 'product', 'version', 'devicetype', 'info', 'cpe', 'tags']
+
+        banner.slice(*banner_keys)
       end
 
       {
@@ -39,6 +39,7 @@ module HTTPClient
           latitude: res['latitude'],
           longitude: res['longitude']
         },
+        vulns: res['vulns'],
         banners: banners
       }
     end
